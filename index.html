@@ -17,13 +17,6 @@
 			background-repeat: no-repeat;
 			/*background-color: #5B5162;*/
 		}
-		/*nav{
-			width: 100%;
-			background: #D7D4D4;transparent;
-			background: transparent;
-			height: 20px;
-		}*/
-
 		ul{
 			list-style: none;
 			padding: 0;
@@ -57,7 +50,7 @@
 		.content{
 			width: 100%;
 			height:600px;
-/*			background-image: url("hair1.png");
+/*			background-image: url("img/hair1.png");
 			background-size: contain;
 			background-repeat: no-repeat;*/
 			margin: 0 auto;
@@ -93,14 +86,16 @@
 		}
 		#next:hover{
 			opacity: 1;
-			transition: 0.8s;
+			transition: 0.6s;
 			cursor: pointer;
 		}
 		.footer{
+			position: fixed;
 			width: 100%;
 			text-align: center;
-			background-color: #777374;
-			margin-bottom: 10px;
+			background-color: transparent;/*#777374;*/
+			bottom: 10px;
+			padding-bottom: 30px;
 		}
 	</style>
 </head>
@@ -110,12 +105,12 @@
 	</header>
 	
 	<nav class="">
-		    <div class="nav" style="background-color="transparent">
+		    <div class="nav">
 			    <li><a class="menu" data-toggle="dropdown" href="#"><i class="fa fa-bars"></i></a>
-			    <ul class="dropdown-menu">
-			      <li><a href="#">Home</a></li>
-			      <li><a href="#">Catagory</a></li>
-			      <li><a href="#">Albumn</a></li>
+			    <ul class="dropdown-menu" style="background-color:transparent;color:white;">
+			      <li><a href="#" style="color:white;">Home</a></li>
+			      <li><a href="#" style="color:white;">Catagory</a></li>
+			      <li><a href="#" style="color:white;">Albumn</a></li>
 			    </ul></li>
 			  </div>
 	</nav>	
@@ -150,10 +145,10 @@
 
 	<script>
 		function goNext1() { 
-  		 // $("body").css("background-image",url("img/hair1.png"));
+  		 // $("body").css("background-image",url("hair1.png"));
 		} 
 		function goNext2() { 
-  		  // $("body").css("background-image",url("img/hair2.png"));
+  		  // $("body").css("background-image",url("hair2.png"));
   		   //$(".next").img("src","img/circle1");
   		  // $(".next img").css("display","none");
 		} 
