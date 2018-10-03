@@ -23,12 +23,14 @@
 		body{
 			margin: 0;
 			background-color: #6d6769;/*#7c8b96;*/
+
 		}
 		.bgdiv{ 
 			margin: 0;
-			background-image: url("img/hair1.png");
+			background-image: url("https://i.imgur.com/ER9WJsA.png");
 			background-size: cover;
 			background-repeat: no-repeat;
+
 			width:100%;height:100%;position:absolute;z-index:-999;
 		}
 		ul{
@@ -50,6 +52,7 @@
 			font-size: 20px;
 			font-family: Palatino, URW Palladio L, serif;
 			font-weight: bold;
+
 		}
 		a:hover{
 			backgound:#D7D4D7;
@@ -58,6 +61,7 @@
 		.header{
 			width: 100%;
 			overflow: auto;
+
 		}
 		h1{
 			float: left;
@@ -77,6 +81,7 @@
 			margin: 0 auto;
 			text-align: center;
 			/*display: none;*/
+
 		}
 		#title1{
 			float: left;
@@ -127,18 +132,28 @@
 	<script>
 	var img = 1;
 	var color = ['#6d6769', '#4d4e53', '#2c3230'];
+	var bk = ['https://i.imgur.com/ER9WJsA.png','https://i.imgur.com/Cha49lh.png','https://i.imgur.com/7XeIrvk.png'];
+	var cir = ['https://i.imgur.com/Pd7dnfu.jpg','https://i.imgur.com/lm847Eh.jpg','https://i.imgur.com/pWlpAGq.jpg'];
 		function ChangeImage(){
+
+
 			var circle;
 			img++;
 			circle = img+1;
 			if(circle ==4){circle=1;}
 			if(img ==4){img=1; circle=2;}
 		    
+
 			$("body").css("background-color", color[img-1]);
 		    $("#bgimg").stop().animate({opacity: 0},1000,function(){
 			    $(this).css({'background-image': "url('img/hair"+img+".png')"}).animate({opacity: 1},{duration:1000});
 			 });
-			document.getElementById("next_button").src = "img/circle"+circle+".jpg";
+			 // $("#bgimg").stop().animate({opacity: 0},1000,function(){
+			 //    $(this).css({'background-image': url(bk[img-1])}).animate({opacity: 1},{duration:1000});
+			 // });
+			// document.getElementById("next_button").src = "img/circle"+circle+".jpg";
+			document.getElementById("next_button").src = cir[circle-1];
+
 			if(img ==1){ 
 				document.getElementById("title1").textContent = "Afro Finalist"; 
 				document.getElementById("title2").textContent = "－2018";}
@@ -179,7 +194,7 @@
 
 		<div class="next">
 			<div style="display:table-cell;vertical-align:middle;">
-				<img id="next_button" onclick="ChangeImage()" src="img/circle2.jpg">
+				<img id="next_button" onclick="ChangeImage()" src="https://i.imgur.com/lm847Eh.jpg">
 			</div>
 		</div>
 
