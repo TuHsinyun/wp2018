@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Student Lists</title>
+</head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<body>
+
+<div id="list">
+	<button id="list_btn">list all students</button>
+	<br>
+	<h3 id="list_result"></h3>
+</div>
+<div id="search">
+	Student ID: <input type="text" name="student_ID" placeholder="Search by student ID"><br>
+	<button id="search_btn">search specific student</button>
+	<br>
+	<h3 id="search_result"></h3>
+</div>
+<div id="add">
+	Student ID: <input type="text" name="student_ID" placeholder="Enter a student ID"><br>
+	Student Name: <input type="text" name="student_name" placeholder="Enter a student name"><br>
+	<button id="add_btn">add new student</button>
+	<h3 id="add_result"></h3>
+</div>
+<div id="delete">
+	Student ID: <input type="text" name="student_ID" placeholder="Delete a student by ID"><br>
+	<button id="delete_btn">delete specific student</button>
+	<h3 id="delete_result"></h3>
+</div>
+<div>
+	<button onclick="clear_all()">clear all</button>
+</div>
+</body>
+
+
+<script>
+    function clear_all(){
+    	console.log("clear all")
+    	$("#list_result").html("");
+    	$("#search_result").html("");
+    	$("#add_result").html("");
+    	$("#delete_result").html("");
+    }
+	function onError(error) {
+		console.error(error);
+	}
+
+ $(document).ready(function() {
+    list_obj = undefined;
+    var studentlist = [];
+
+    $.getJSON('studentlist.json', function(data) {
+    	studentlist = data;
+    	success: console.log(data);
+    	error: onError;
+    	
+    })
+
+	$("#list_btn").click(function(event) {
+    	success: console.log("listing")
+    	
+		text = ""
+		for(id in studentlist) {
+			if(studentlist[id]) {
+				text = text + id + ":" + studentlist[id] + "<br>";
+			}
+		}
+		$("#list_result").html(text);
+    })
+    
+    $("#search_btn").click(function(event) {
+    	success: console.log("searching")
+
+    	var id = $("#search input[name='student_ID']").val()
+		var arr = $("#search_result")
+		console.log(id)
+		arr.empty()
+
+    	if(studentlist[id]!=undefined) arr.append("Hello! "+studentlist[id]) 
+    	else  arr.append("Please enter the correct ID.")
+
+    	$("#search input[name='student_ID']").val("");
+
+    })
+
+    $("#add_btn").click(function(event) {
+    	success: console.log("adding")
+
+    	var id = $("#add input[name = 'student_ID']").val();
+    	var name = $("#add input[name = 'student_name']").val();
+
+    	studentlist[id] = name;
+    	console.log(studentlist);
+
+    	
+    	$("#add input[name='student_ID']").val("");
+    	$("#add input[name='student_name']").val("");
+    })
+
+    $("#delete_btn").click(function(event) {
+    	success: console.log("deleting")
+
+    	var id = $("#delete input[name = 'student_ID']").val();
+    	delete studentlist[id];
+
+    	$("#delete input[name='student_ID']").val("");    	
+    })
+	
+})
+
+</script>
+</html>
