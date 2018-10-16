@@ -3,111 +3,157 @@
 <head>
 	<title>Student Lists</title>
 </head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        label {
+            color: #7b8952;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Georgia;
+        }
+        button {
+            border-radius: 8px;
+            border:none;
+        }
+        button:hover {
+            cursor: pointer;
+        }
+        div #list{
+            margin-bottom: 5px;
+        }
+    </style>
 <body>
 
+<div class="w3-container w3-black">
+  <h2>Student List</h2>
+</div>
+
+<div class="w3-container">
+
 <div id="list">
-	<button id="list_btn">list all students</button>
-	<br>
-	<h3 id="list_result"></h3>
+	<br><button id="list_btn" class="w3-light-gray"><i class="fa fa-bars"></i> list all students</button>
+    <button class="w3-light-gray" onclick="clear_all()"><i class="fa fa-close"></i> clear all</button>
+	<br><br>
+	<span id="list_result"></span><br>
 </div>
+
 <div id="search">
-	Student ID: <input type="text" name="student_ID" placeholder="Search by student ID"><br>
-	<button id="search_btn">search specific student</button>
+	<label>Student ID </label>
+    <input class="w3-input" type="text" name="student_ID" placeholder="Search by student ID"><br>
+	<button id="search_btn" class="w3-btn w3-lime">search specific student</button>
 	<br>
-	<h3 id="search_result"></h3>
+	<h5 id="search_result"></h5><br><br>
 </div>
+
 <div id="add">
-	Student ID: <input type="text" name="student_ID" placeholder="Enter a student ID"><br>
-	Student Name: <input type="text" name="student_name" placeholder="Enter a student name"><br>
-	<button id="add_btn">add new student</button>
-	<h3 id="add_result"></h3>
+	<label>Student ID </label>
+    <input class="w3-input" type="text" name="student_ID" placeholder="Enter a student ID"><br>
+	<label>Student Name </label>
+    <input class="w3-input" type="text" name="student_name" placeholder="Enter a student name"><br>
+	<button id="add_btn" class="w3-btn w3-lime">add new student</button>
+	<h5 id="add_result"></h5><br><br>
 </div>
+
 <div id="delete">
-	Student ID: <input type="text" name="student_ID" placeholder="Delete a student by ID"><br>
-	<button id="delete_btn">delete specific student</button>
-	<h3 id="delete_result"></h3>
+	<label>Student ID </label>
+    <input class="w3-input" type="text" name="student_ID" placeholder="Delete a student by ID"><br>
+	<button id="delete_btn" class="w3-btn w3-lime">delete specific student</button>
+	<h5 id="delete_result"></h5><br><br>
 </div>
-<div>
-	<button onclick="clear_all()">clear all</button>
+
+
 </div>
 </body>
 
 
 <script>
     function clear_all(){
-    	console.log("clear all")
-    	$("#list_result").html("");
-    	$("#search_result").html("");
-    	$("#add_result").html("");
-    	$("#delete_result").html("");
+        console.log("clear all")
+        $("#list_result").html("");
+        $("#search_result").html("");
+        $("#add_result").html("");
+        $("#delete_result").html("");
     }
-	function onError(error) {
-		console.error(error);
-	}
+    function onError(error) {
+        console.error(error);
+    }
 
  $(document).ready(function() {
     list_obj = undefined;
     var studentlist = [];
 
     $.getJSON('studentlist.json', function(data) {
-    	studentlist = data;
-    	success: console.log(data);
-    	error: onError;
-    	
+        studentlist = data;
+        success: console.log(data);
+        error: onError;
+        
     })
 
-	$("#list_btn").click(function(event) {
-    	success: console.log("listing")
-    	
-		text = ""
-		for(id in studentlist) {
-			if(studentlist[id]) {
-				text = text + id + ":" + studentlist[id] + "<br>";
-			}
-		}
-		$("#list_result").html(text);
+    $("#list_btn").click(function(event) {
+        event.preventDefault;
+        success: console.log("listing")
+        
+        text = ""
+        for(id in studentlist) {
+            if(studentlist[id]) {
+                text = text + id + ":" + studentlist[id] + "<br>";
+            }
+        }
+        $("#list_result").html(text);
     })
     
     $("#search_btn").click(function(event) {
-    	success: console.log("searching")
+        success: console.log("searching")
 
-    	var id = $("#search input[name='student_ID']").val()
-		var arr = $("#search_result")
-		console.log(id)
-		arr.empty()
+        var id = $("#search input[name='student_ID']").val()
+        var arr = $("#search_result")
+        console.log(id)
+        arr.empty()
 
-    	if(studentlist[id]!=undefined) arr.append("Hello! "+studentlist[id]) 
-    	else  arr.append("Please enter the correct ID.")
+        if(studentlist[id]!=undefined) arr.append("Hello! "+studentlist[id]) 
+        else  arr.append("Please enter the correct ID.")
 
-    	$("#search input[name='student_ID']").val("");
+        $("#search input[name='student_ID']").val("");
 
     })
 
     $("#add_btn").click(function(event) {
-    	success: console.log("adding")
+        success: console.log("adding")
 
-    	var id = $("#add input[name = 'student_ID']").val();
-    	var name = $("#add input[name = 'student_name']").val();
+        var id = $("#add input[name = 'student_ID']").val();
+        var name = $("#add input[name = 'student_name']").val();
 
-    	studentlist[id] = name;
-    	console.log(studentlist);
+        if(studentlist[id]!=undefined) $("#add_result").html("Student ID already exists.");
+        else if(id=="" || name=="") $("#add_result").html("Please enter the correct ID or student name.");
+        else {
+            studentlist[id] = name;
+            $("#add_result").html("Student: "+id+", "+name+", has been added successfully!");
+        }
+        console.log(studentlist);
 
-    	
-    	$("#add input[name='student_ID']").val("");
-    	$("#add input[name='student_name']").val("");
+        
+        $("#add input[name='student_ID']").val("");
+        $("#add input[name='student_name']").val("");
     })
 
     $("#delete_btn").click(function(event) {
-    	success: console.log("deleting")
+        success: console.log("deleting")
+        setTimeout($("#delete_result").html("Loading..."),3000);
 
-    	var id = $("#delete input[name = 'student_ID']").val();
-    	delete studentlist[id];
+        var id = $("#delete input[name = 'student_ID']").val();
+        if(studentlist[id]!=undefined) {
+            delete studentlist[id];
+            $("#delete_result").html("Loading...");
+            $("#delete_result").html(id+" was deleted.")
+        }    
+        else $("#delete_result").html("Please enter the correct ID.")
 
-    	$("#delete input[name='student_ID']").val("");    	
+        $("#delete input[name='student_ID']").val("");      
     })
-	
+    
 })
 
 </script>
